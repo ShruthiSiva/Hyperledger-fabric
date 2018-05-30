@@ -1,0 +1,34 @@
+query AllFlights {
+  description: "Returns all flights in registry" 
+  statement: 
+    SELECT org.acme.airline.flight.Flight
+}
+
+query FlightByNumber {
+  description: "Returns all flights with the number"
+  statement:
+    SELECT org.acme.airline.flight.Flight
+    WHERE (flightNumber == _$flight_Number)
+}
+
+query FlightsOriginAndDestination {
+  description: "Returns flights with the given origin and dest"
+  statement:
+    SELECT org.acme.airline.flight.Flight
+    WHERE (route.origin == _$origin AND route.destination == _$destination)
+}
+
+query flightsOnOriginDestinationDates {
+  description: "Returns flights on a particular date"
+  statement:
+    SELECT org.acme.airline.flight.Flight
+    WHERE (route.origin == _$origin AND route.destination == _$destination AND route.schedule == _$scheduleDate)
+}
+
+query AllFlightsSkipLimit {
+  description: "Limits number of flights returned"
+  statement: 
+    SELECT org.acme.airline.flight.Flight
+      LIMIT _$limit
+        SKIP _$skip
+}
